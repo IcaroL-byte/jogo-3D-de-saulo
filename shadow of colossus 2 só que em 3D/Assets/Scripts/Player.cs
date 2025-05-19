@@ -8,11 +8,13 @@ public class Player : MonoBehaviour
     private bool _isGrounded;
     public float jumpForce = 5;
     
+    private Animator _animation;
     public float velocidade = 10f;
     
     void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
+        _animation = GetComponent<Animator>();
     }
 
     void onCollisionEnter(Collision collision)
@@ -33,26 +35,35 @@ public class Player : MonoBehaviour
     void Update()
     {
         Vector3 posicao = transform.position;
+        _animation.SetBool("Andando", false);
         
         if (Input.GetKey(KeyCode.A))
         {
             posicao.x = posicao.x - velocidade * Time.deltaTime; 
+            _animation.SetBool("Andando", true);    
+            transform.rotation = Quaternion.Euler(0f, -90f, 0f);
         }
         
         if (Input.GetKey(KeyCode.D))
         {
             posicao.x = posicao.x + velocidade * Time.deltaTime; 
+            _animation.SetBool("Andando", true);    
+            transform.rotation = Quaternion.Euler(0f, 90f, 0f);
         }
         
         
         if (Input.GetKey(KeyCode.S))
         {
             posicao.z = posicao.z - velocidade * Time.deltaTime; 
+            _animation.SetBool("Andando", true);    
+            transform.rotation = Quaternion.Euler(0f, 180f, 0f);
         }
         
         if (Input.GetKey(KeyCode.W))
         {
             posicao.z = posicao.z + velocidade * Time.deltaTime; 
+            _animation.SetBool("Andando", true);    
+            transform.rotation = Quaternion.Euler(0f, 0f, 0f);
         }
 
         if (Input.GetKey(KeyCode.E))
