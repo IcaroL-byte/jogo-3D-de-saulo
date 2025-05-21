@@ -66,10 +66,7 @@ public class Player : MonoBehaviour
             transform.rotation = Quaternion.Euler(0f, 0f, 0f);
         }
 
-        if (Input.GetKey(KeyCode.E))
-        {
-            transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-        }
+        
         
         transform.position = posicao;
 
