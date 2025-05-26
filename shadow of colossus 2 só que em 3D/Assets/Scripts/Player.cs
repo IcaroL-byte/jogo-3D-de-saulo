@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     
     private Animator _animation;
     public float velocidade = 10f;
+    private bool _isWalking;
     
     void Start()
     {
@@ -36,12 +37,14 @@ public class Player : MonoBehaviour
     {
         Vector3 posicao = transform.position;
         _animation.SetBool("Andando", false);
+        _isWalking = false;
         
         if (Input.GetKey(KeyCode.A))
         {
             posicao.x = posicao.x - velocidade * Time.deltaTime; 
             _animation.SetBool("Andando", true);    
             transform.rotation = Quaternion.Euler(0f, -90f, 0f);
+            _isWalking = true;
         }
         
         if (Input.GetKey(KeyCode.D))
@@ -49,6 +52,7 @@ public class Player : MonoBehaviour
             posicao.x = posicao.x + velocidade * Time.deltaTime; 
             _animation.SetBool("Andando", true);    
             transform.rotation = Quaternion.Euler(0f, 90f, 0f);
+            _isWalking = true;
         }
         
         
@@ -57,6 +61,7 @@ public class Player : MonoBehaviour
             posicao.z = posicao.z - velocidade * Time.deltaTime; 
             _animation.SetBool("Andando", true);    
             transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            _isWalking = true;
         }
         
         if (Input.GetKey(KeyCode.W))
@@ -64,6 +69,7 @@ public class Player : MonoBehaviour
             posicao.z = posicao.z + velocidade * Time.deltaTime; 
             _animation.SetBool("Andando", true);    
             transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+            _isWalking = true;
         }
 
         
@@ -77,6 +83,17 @@ public class Player : MonoBehaviour
         }
     }
 
-   
+    private void FixedUpdate()
+    {
+        Attack();
+    }
+
+    void Attack()
+    {
+        if (Input.GetButtonDown("Fire1") && !_isWalking)
+        {
+            _animation.SetTrigger("Ataque");
+        }
+    }
     
 }
