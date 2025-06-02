@@ -81,6 +81,44 @@ public class Player : MonoBehaviour
             _rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             _isGrounded = false;
         }
+        
+       
+        
+        if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.D))
+        {
+            posicao.x = posicao.x + velocidade * Time.deltaTime;
+            posicao.z = posicao.z + velocidade * Time.deltaTime;
+            transform.rotation = Quaternion.Euler(0, 45, 0);
+            _isWalking =  true;
+        }
+        else
+            
+        if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.D))
+        {
+            posicao.x = posicao.x + velocidade * Time.deltaTime;
+            posicao.z = posicao.z - velocidade * Time.deltaTime;
+            transform.rotation = Quaternion.Euler(0, 135, 0);
+            _isWalking =  true;
+        }
+        else    
+        
+        if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.A))
+        {
+            posicao.x = posicao.x - velocidade * Time.deltaTime;
+            posicao.z = posicao.z - velocidade * Time.deltaTime;
+            transform.rotation = Quaternion.Euler(0, -135, 0);
+            _isWalking =  true;
+        }
+        else   
+            
+        if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.A))
+        {
+            posicao.x = posicao.x - velocidade * Time.deltaTime;
+            posicao.z = posicao.z + velocidade * Time.deltaTime;
+            transform.rotation = Quaternion.Euler(0, -45, 0);
+            _isWalking =  true;
+        }
+        
     }
 
     private void FixedUpdate()
