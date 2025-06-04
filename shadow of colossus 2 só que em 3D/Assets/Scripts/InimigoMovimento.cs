@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class InimigoMovimento : MonoBehaviour
 {
+    private Animator animator;
     private GameObject _player;
     public GameObject ataqueObject;
     private Rigidbody _rigidbody;
@@ -21,6 +22,7 @@ public class InimigoMovimento : MonoBehaviour
             _rigidbody = gameObject.GetComponent<Rigidbody>();
             velocidade = gameObject.GetComponent<Inimigo>().VelocidadeDoPersonagen();
             capsule = gameObject.GetComponent<SphereCollider>();
+            animator = gameObject.GetComponent<Animator>();
             
             _player = GameObject.FindWithTag("Player");
     }
@@ -29,6 +31,7 @@ public class InimigoMovimento : MonoBehaviour
     void Update()
     {
         capsule.radius = raioDeVisao;
+        animator.SetBool("isWalking", false);
         
         if (Vector3.Distance(transform.position, _player.transform.position) > distanciaMinima)
         {
@@ -36,17 +39,21 @@ public class InimigoMovimento : MonoBehaviour
             {
                 transform.LookAt(_player.transform.position);
                 transform.position = Vector3.MoveTowards(transform.position, _player.transform.position, velocidade * Time.deltaTime);  
-            
+                animator.SetBool("isWalking", true);
             
             }
             ataqueObject.SetActive(false);
+           
         }
         else
         {
-
             
+            animator.SetTrigger("Attack");
             ataqueObject.SetActive(true);
         }
+        
+        
+        
         Debug.DrawLine(transform.position, _player.transform.position, Color.red);
     }
     
