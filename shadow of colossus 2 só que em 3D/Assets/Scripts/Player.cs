@@ -11,9 +11,13 @@ public class Player : MonoBehaviour
     private Animator _animation;
     public float velocidade = 10f;
     private bool _isWalking;
-    
+
+    public GameObject inventoryPanel;
+    private bool activeInventory;
+
     void Start()
     {
+        inventoryPanel.SetActive(false);    
         _rigidbody = GetComponent<Rigidbody>();
         _animation = GetComponent<Animator>();
     }
@@ -118,7 +122,7 @@ public class Player : MonoBehaviour
             transform.rotation = Quaternion.Euler(0, -45, 0);
             _isWalking =  true;
         }
-        
+        inventario();
     }
 
     private void FixedUpdate()
@@ -134,4 +138,17 @@ public class Player : MonoBehaviour
         }
     }
     
+    void inventario()
+    {
+        if (Input.GetKeyUp(KeyCode.Tab))
+        {
+            activeInventory = !activeInventory;
+            inventoryPanel.SetActive(activeInventory);
+        }
+        if (activeInventory)
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
+    }
+
 }
